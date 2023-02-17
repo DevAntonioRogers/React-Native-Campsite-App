@@ -1,7 +1,7 @@
 export const CAMPSITES = [
     {
         id: 0,
-        name: "React Lake Campgroun",
+        name: "React Lake Campground",
         image: require("../assets/images/react-lake.jpg"),
         elevation: 1233,
         featured: false,
