@@ -6,6 +6,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as ImagePicker from 'expo-image-picker';
 import { baseUrl } from '../shared/baseUrl';
 import logo from '../assets/images/logo.png';
+import * as ImageManipulator from 'expo-image-manipulator';
+
 
 const LoginTab = ({ navigation }) => {
   const [username, setUsername] = useState('');
@@ -146,12 +148,19 @@ const RegisterTab = () => {
         allowsEditing: true,
         aspect: [1, 1]
       });
-      if (capturedImage.assets) {
-        console.log(capturedImage.assets[0]);
-        setImageUrl(capturedImage.assets[0].uri);
+      if (!capturedImage.cancelled) {
+        console.log(capturedImage);
+        processImage(capturedImage.uri);
       }
     }
   };
+
+  const processImage = async (imgUri) => {
+    const processedImage = await ImageManipulator.manipulateAsync(imgUri, [{ resize: { width: 400 } }], { format: 'png' });
+    console.log(processedImage);
+    setImageUrl(processedImage.uri);
+  };
+
 
   return (
     <ScrollView>
